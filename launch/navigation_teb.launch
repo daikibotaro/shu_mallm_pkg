@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<launch>
+
+
+  <!-- Add the custom command as the first node -->
+<!--  <node name="bringup_can2usb" pkg="tracer_bringup" type="scripts/bringup_can2usb.bash" output="screen">-->
+<!--    <param name="password" type="string" value="hiratalab"/>-->
+<!--  </node>-->
+  
+  <include file="$(find tracer_navigation)/launch/startup.launch"/>
+  <!-- Run the map server -->
+  <arg name="map_file" default="$(find tracer_navigation)/maps/livinglab.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!--node pkg="laser_scan_matcher" type="laser_scan_matcher_node" name="laser_scan_matcher_node" output="screen">
+    <param name="fixed_frame" value = "odom"/>
+    <param name="base_frame" value = "base_footprint"/>
+    <param name="use_alpha_beta" value="true"/>
+    <param name="max_iterations" value="10"/>
+  </node-->
+
+
+  <!--- Run AMCL -->
+  <include file="$(find tracer_navigation)/launch/amcl.launch" />
+
+  <!--- Run Move Base -->
+  <include file="$(find tracer_navigation)/launch/move_base_teb.launch" />
+
+  <!--  tf_map_to_base_link  -->
+  <include file="$(find tracer_navigation)/launch/tf_map_to_base_link.launch" />
+  
+  <!--- Run Chainlit -->
+<!--  <include file="$(find shu_task_planning)/launch/chainlit.launch" />-->
+
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find tracer_navigation)/rviz/navigation.rviz" />
+
+
+</launch>

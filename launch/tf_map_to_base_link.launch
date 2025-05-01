@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+
+<launch>
+    <node pkg="tracer_navigation" type="tf_map_to_base_link.py" name="robot_position_publisher" output="screen"/>
+</launch>

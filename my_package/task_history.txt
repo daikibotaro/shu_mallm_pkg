@@ -1,0 +1,1136 @@
+task:その場で挨拶して
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+def main():
+    rospy.init_node('greet')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 挨拶のメッセージ
+    greeting_message = "こんにちは！お手伝いできることがあれば教えてください。"
+
+    # 音声で挨拶
+    tts.talk(greeting_message)
+
+    # ディスプレイに挨拶を表示
+    display.display_message(greeting_message)
+
+if __name__ == '__main__':
+    main()
+
+
+task:その場で挨拶して
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+def main():
+    rospy.init_node('greet')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 挨拶のメッセージ
+    greeting_message = "こんにちは！何かお手伝いできることがあればお知らせください。"
+
+    # 音声で挨拶
+    tts.talk(greeting_message)
+
+    # ディスプレイに挨拶を表示
+    display.display_message(greeting_message)
+
+if __name__ == '__main__':
+    main()
+
+
+task:その場で挨拶して
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import DisplayManager, TextToSpeech
+
+def main():
+    rospy.init_node('greet')
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 挨拶を音声で伝達
+    tts.talk("こんにちは")
+
+    # ディスプレイに挨拶を表示
+    display.display_message("こんにちは")
+
+if __name__ == '__main__':
+    main()
+
+
+task:風呂に行って，人がいるか確認してきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, LLMProcessor, TextToSpeech, DisplayManager
+
+
+def main():
+    rospy.init_node('check_bathroom_status')
+    controller = RobotController()
+    llm = LLMProcessor()
+    tts = TextToSpeech()
+    display = DisplayManager()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 風呂に移動して写真を撮る
+    if not controller.move_to_location("風呂"):
+        rospy.logerr("風呂への移動に失敗しました。")
+        return False
+
+    image_file = controller.take_photo()
+    if not image_file:
+        rospy.logerr("写真撮影に失敗しました。")
+        return False
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+    # 写真の説明を生成
+    explanation = llm.AI_vision(image_file, "人は写っていますか？")
+
+    # 説明を伝達
+    tts.talk(explanation)
+    display.display_message(explanation)
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:風呂に行って，人がいるか確認してきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, LLMProcessor, TextToSpeech, DisplayManager
+
+
+def main():
+    rospy.init_node('check_bathroom_occupancy')
+    controller = RobotController()
+    llm = LLMProcessor()
+    tts = TextToSpeech()
+    display = DisplayManager()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 風呂に移動して写真を撮る
+    if not controller.move_to_location("風呂"):
+        rospy.logerr("風呂への移動に失敗しました。")
+        return False
+
+    image_file = controller.take_photo()
+    if not image_file:
+        rospy.logerr("写真撮影に失敗しました。")
+        return False
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+    # 写真の説明を生成
+    explanation = llm.AI_vision(image_file, "風呂に人はいますか？")
+
+    # 説明を伝達
+    tts.talk(explanation)
+    display.display_message(explanation)
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:風呂に行って，人がいるか確認してきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, LLMProcessor, TextToSpeech, DisplayManager
+
+
+def main():
+    rospy.init_node('check_bathroom_occupancy')
+    controller = RobotController()
+    llm = LLMProcessor()
+    tts = TextToSpeech()
+    display = DisplayManager()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 風呂に移動して写真を撮る
+    if not controller.move_to_location("風呂"):
+        rospy.logerr("風呂への移動に失敗しました。")
+        return False
+
+    image_file = controller.take_photo()
+    if not image_file:
+        rospy.logerr("写真撮影に失敗しました。")
+        return False
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+    # 写真の説明を生成
+    explanation = llm.AI_vision(image_file, "風呂に人はいますか？")
+
+    # 説明を伝達
+    tts.talk(explanation)
+    display.display_message(explanation)
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:1分ごとにトイレの様子を撮影してきてください．
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+import time
+from function_class import RobotController, DisplayManager
+
+def main():
+    rospy.init_node('toilet_monitoring')
+    controller = RobotController()
+    display = DisplayManager()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # トイレに移動
+    if not controller.move_to_location("トイレ"):
+        rospy.logerr("トイレへの移動に失敗しました。")
+        return False
+
+    # 撮影回数の設定
+    number_of_photos = 5
+
+    for _ in range(number_of_photos):
+        # 写真を撮影
+        image_file = controller.take_photo()
+        if not image_file:
+            rospy.logerr("写真撮影に失敗しました。")
+            return False
+
+        # 初期位置に戻る
+        if not controller.return_to_initial_position(initial_position):
+            rospy.logerr("初期位置への移動に失敗しました。")
+            return False
+
+        # 撮影した写真を表示
+        display.show_image(image_file)
+
+        # 1分待機
+        time.sleep(60)
+
+    # 最後にトイレに戻る
+    if not controller.move_to_location("トイレ"):
+        rospy.logerr("トイレへの移動に失敗しました。")
+        return False
+
+if __name__ == '__main__':
+    main()
+
+
+task:風呂場に移動して、『準備ができました』と伝えてください
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('notify_ready_in_bathroom')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 風呂に移動
+    if not controller.move_to_location("風呂"):
+        rospy.logerr("風呂への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    message = "準備ができました"
+    tts.talk(message)
+    display.display_message(message)
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:リビングルームで薬が必要か聞いてください．必要なら台所から運んでください．
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('check_medicine')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # リビングルームに移動
+    if not controller.move_to_location("リビングルーム"):
+        rospy.logerr("リビングルームへの移動に失敗しました。")
+        return False
+
+    # 薬が必要か確認
+    tts.talk("薬が必要ですか？")
+    need_medicine = display.ask_yes_or_no("薬が必要ですか？")
+
+    if need_medicine:
+        # 台所に移動
+        if not controller.move_to_location("台所"):
+            rospy.logerr("台所への移動に失敗しました。")
+            return False
+
+        # 薬を取得する
+        tts.talk("薬を取っていただけますか？")
+        display.display_message("薬を取っていただけますか？")
+
+        # リビングルームに戻る
+        if not controller.move_to_location("リビングルーム"):
+            rospy.logerr("リビングルームへの移動に失敗しました。")
+            return False
+
+        # メッセージを伝達
+        tts.talk("薬をお届けしました")
+        display.display_message("薬をお届けしました")
+
+    else:
+        # 薬は必要ない場合
+        tts.talk("薬は必要ありませんでした。")
+        display.display_message("薬は必要ありませんでした。")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:台所に置いてある飲料水を、リビングルームに運んでください。
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('transport_water')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 台所に移動
+    if not controller.move_to_location("台所"):
+        rospy.logerr("台所への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("飲料水を持ってきてください")
+    display.display_message("飲料水を持ってきてください")
+
+    # リビングルームに移動
+    if not controller.move_to_location("リビングルーム"):
+        rospy.logerr("リビングルームへの移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("飲料水をお届けしました")
+    display.display_message("飲料水をお届けしました")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:受入れに移動して写真を撮ってきてください。撮影後は休憩室に戻ってきて写真を表示してください。
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager
+
+def main():
+    rospy.init_node('take_photo_and_return')
+    controller = RobotController()
+    display = DisplayManager()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 受入れに移動
+    if not controller.move_to_location("受入れ"):
+        rospy.logerr("受入れへの移動に失敗しました。")
+        return False
+
+    # 写真を撮影
+    image_file = controller.take_photo()
+    if not image_file:
+        rospy.logerr("写真撮影に失敗しました。")
+        return False
+
+    # 休憩室に戻る
+    if not controller.return_to_initial_position("休憩室"):
+        rospy.logerr("休憩室への移動に失敗しました。")
+        return False
+
+    # 撮影した写真を表示
+    display.show_image(image_file)
+
+if __name__ == '__main__':
+    main()
+
+
+task:受入れに移動して写真を撮ってきてください。撮影後は休憩室に戻ってきて写真を表示してください。
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager
+
+def main():
+    rospy.init_node('take_photo_and_display')
+    controller = RobotController()
+    display = DisplayManager()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 受入れに移動
+    if not controller.move_to_location("受入れ"):
+        rospy.logerr("受入れへの移動に失敗しました。")
+        return False
+
+    # 写真を撮影
+    image_file = controller.take_photo()
+    if not image_file:
+        rospy.logerr("写真撮影に失敗しました。")
+        return False
+
+    # 休憩室に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+    # 撮影した写真を表示
+    display.show_image(image_file)
+
+if __name__ == '__main__':
+    main()
+
+
+task:ネジをください
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('get_screw')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 部品棚へ移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ネジが必要です。荷台に乗せていただけますか？")
+    display.display_message("ネジが必要です。荷台に乗せていただけますか？")
+
+    # 待機場に移動
+    if not controller.move_to_location("待機場"):
+        rospy.logerr("待機場への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ネジをお持ちしました")
+    display.display_message("ネジをお持ちしました")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:こんにちてゃ
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager
+
+def main():
+    rospy.init_node('check_break_room_status')
+    controller = RobotController()
+    display = DisplayManager()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 休憩室に移動
+    if not controller.move_to_location("休憩室"):
+        rospy.logerr("休憩室への移動に失敗しました。")
+        return False
+
+    # ディスプレイにメッセージを表示
+    display.display_message("休憩室の様子を教えてください。")
+
+    # 待機
+    rospy.sleep(5)  # 5秒間待機（必要に応じて調整）
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+if __name__ == '__main__':
+    main()
+
+
+task:ネジを持ってきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('get_screw')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 部品棚へ移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ねじが必要です。荷台に乗せていただけますか？")
+    display.display_message("ねじが必要です。荷台に乗せていただけますか？")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:ネジを持ってきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('get_screw')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 部品棚へ移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ねじが必要です。荷台に乗せていただけますか？")
+    display.display_message("ねじが必要です。荷台に乗せていただけますか？")
+
+    # 待機
+    rospy.sleep(5)  # 5秒間待機（必要に応じて調整）
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:ネジを持ってきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('get_screw')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 部品棚へ移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ねじが必要です。荷台に乗せていただけますか？")
+    display.display_message("ねじが必要です。荷台に乗せていただけますか？")
+
+    # 待機
+    rospy.sleep(5)  # 5秒間待機（必要に応じて調整）
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:ネジを持ってきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('get_screw')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 部品棚へ移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ねじが必要です。荷台に乗せていただけますか？")
+    display.display_message("ねじが必要です。荷台に乗せていただけますか？")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:ネジを持ってきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('get_screw')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 部品棚へ移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ねじが必要です。荷台に乗せていただけますか？")
+    display.display_message("ねじが必要です。荷台に乗せていただけますか？")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:ネジを持ってきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('get_screw')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 部品棚へ移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ねじが必要です。荷台に乗せていただけますか？")
+    display.display_message("ねじが必要です。荷台に乗せていただけますか？")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:休憩室に行って水をもらってきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('get_water')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 休憩室に移動
+    if not controller.move_to_location("休憩室"):
+        rospy.logerr("休憩室への移動に失敗しました。")
+        return False
+
+    # メッセージを表示
+    display.display_message("水を取ってください。")
+
+    # 待機
+    rospy.sleep(10)  # 10秒間待機（必要に応じて調整可能）
+
+    # 待機場に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:清掃用具入れからブラシをとってきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('get_brush')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 休憩室へ移動
+    if not controller.move_to_location("休憩室"):
+        rospy.logerr("休憩室への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ピンク色のブラシを載せていただけますか？")
+    display.display_message("ピンク色のブラシを載せていただけますか？")
+
+    # 清掃用具入れに移動
+    if not controller.move_to_location("清掃用具入れ"):
+        rospy.logerr("清掃用具入れへの移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ブラシをお持ちしました")
+    display.display_message("ブラシをお持ちしました")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:清掃用具入れからブラシをとってきて
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('fetch_brush')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 休憩室へ移動
+    if not controller.move_to_location("休憩室"):
+        rospy.logerr("休憩室への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("ピンク色のブラシを荷台に載せていただけますか？")
+    display.display_message("ピンク色のブラシを荷台に載せていただけますか？")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:各工程を回って看板を荷台に載せてもらってください。回収が終わったら休憩室に運んでください。
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('collect_and_deliver_signboards')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    sections = ["組立て工程", "検査工程"]
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    for section in sections:
+        # 各工程に移動
+        if not controller.move_to_location(section):
+            rospy.logerr(f"{section}への移動に失敗しました。")
+            return False
+
+        # 看板を載せてもらうように依頼
+        tts.talk(f"{section}の看板を荷台に載せてください。")
+        display.display_message(f"{section}の看板を荷台に載せてください。")
+
+    # 休憩室に移動
+    if not controller.move_to_location("休憩室"):
+        rospy.logerr("休憩室への移動に失敗しました。")
+        return False
+
+    # 看板の枚数を確認してもらう
+    tts.talk("看板の枚数を確認してください。")
+    display.display_message("看板の枚数を確認してください。")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:受入れにあるフレームを、部品棚に運んでください。
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('transport_frame')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 受入れへ移動
+    if not controller.move_to_location("受入れ"):
+        rospy.logerr("受入れへの移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("フレームを荷台に乗せていただけますか？")
+    display.display_message("フレームを荷台に乗せていただけますか？")
+
+    # 部品棚に移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # A-340のフレームであることを伝達
+    tts.talk("A-340のフレームをお持ちしました")
+    display.display_message("A-340のフレームをお持ちしました")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:受入れにあるフレームを、部品棚に運んでください。
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('transport_frame')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 受入れへ移動
+    if not controller.move_to_location("受入れ"):
+        rospy.logerr("受入れへの移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("フレームを荷台に乗せていただけますか？")
+    display.display_message("フレームを荷台に乗せていただけますか？")
+
+    # 部品棚に移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("フレームをお持ちしました")
+    display.display_message("フレームをお持ちしました")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+
+task:入れにあるフレームを、部品棚に運んde
+
+result:
+
+#!/usr/bin/env python3
+
+import rospy
+from function_class import RobotController, DisplayManager, TextToSpeech
+
+
+def main():
+    rospy.init_node('transport_frame')
+    controller = RobotController()
+    display = DisplayManager()
+    tts = TextToSpeech()
+
+    # 初期位置を取得
+    initial_position = controller.get_robot_position()
+
+    # 受け入れへ移動
+    if not controller.move_to_location("受け入れ"):
+        rospy.logerr("受け入れへの移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("フレームを荷台に乗せていただけますか？")
+    display.display_message("フレームを荷台に乗せていただけますか？")
+
+    # 部品棚に移動
+    if not controller.move_to_location("部品棚"):
+        rospy.logerr("部品棚への移動に失敗しました。")
+        return False
+
+    # メッセージを伝達
+    tts.talk("フレームをお持ちしました")
+    display.display_message("フレームをお持ちしました")
+
+    # 初期位置に戻る
+    if not controller.return_to_initial_position(initial_position):
+        rospy.logerr("初期位置への移動に失敗しました。")
+        return False
+
+
+if __name__ == '__main__':
+    main()
+
+

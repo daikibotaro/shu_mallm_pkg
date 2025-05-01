@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+
+<launch>
+    <node pkg="shu_task_planning" type="run_chainlit.py" name="run_chainlit" output="screen"/>
+</launch>
