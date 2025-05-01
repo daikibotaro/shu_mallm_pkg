@@ -2,7 +2,7 @@ import http.server
 import socketserver
 
 PORT = 5000
-DIRECTORY = "/home/hiratalab/catkin_ws/src/shu_task_planning/my_package/public/"
+DIRECTORY = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/my_package/public/"
 
 
 class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):

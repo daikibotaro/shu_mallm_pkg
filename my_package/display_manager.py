@@ -10,7 +10,7 @@ from rich import print
 class DisplayManager:
     def __init__(self):
         self.root = None
-        self.history_file = "/home/hiratalab/catkin_ws/src/shu_task_planning/history/message_history.json"
+        self.history_file = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/history/message_history.json"
 
     def show_image(self, image_filename):
         # Check if the file exists

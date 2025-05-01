@@ -9,7 +9,7 @@ def main():
     rospy.loginfo("run_chainlit node started!")
     try:
         # Chainlitを起動するコマンドを実行
-        result = subprocess.run(["python3", "/home/hiratalab/catkin_ws/src/shu_task_planning/my_package/run.py"])
+        result = subprocess.run(["python3", "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/my_package/run.py"])
         rospy.loginfo("Subprocess output: %s", result.stdout)
     except subprocess.CalledProcessError as e:
         rospy.logerr("Subprocess failed with error: %s", e)

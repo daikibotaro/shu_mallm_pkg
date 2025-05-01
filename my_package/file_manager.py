@@ -17,8 +17,8 @@ class FileManager():
         self.llm = LLMProcessor()
         self.task_tracker = TaskTracker()
 
-        self.history_file = "/home/hiratalab/catkin_ws/src/shu_task_planning/history/message_history.json"
-        self.output_file = "/home/hiratalab/catkin_ws/src/shu_task_planning/my_package/task_history.txt"
+        self.history_file = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/history/message_history.json"
+        self.output_file = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/my_package/task_history.txt"
 
     @staticmethod
     def load_text(path):
@@ -114,14 +114,14 @@ class FileManager():
                 self.save_task_usage_history()
                 await self.get_condition()
                 await self.update_knowledge_base()
-                file_path = "/home/hiratalab/catkin_ws/src/shu_task_planning/scripts/result.py"
+                file_path = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/scripts/result.py"
                 with open(file_path, "w") as f:
                     f.write(output)
                 print("\n[bold yellow]ファイルを作成しました！[/bold yellow]")
                 print("\n[bold green_yellow]ファイルを実行します......[/bold green_yellow]")
                 # ロボットなしでも動作確認ができるようにコメントアウト中
                 # subprocess.run(["chmod", "+x", file_path])
-                # subprocess.run(["rosrun", "shu_task_planning", "result.py"])
+                # subprocess.run(["rosrun", "shu_mallm_pkg", "result.py"])
                 return True
             else:
                 print("キャンセルされました")

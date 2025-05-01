@@ -7,7 +7,7 @@ from rich import print
 class LLMProcessor:
     def __init__(self):
         self.client = OpenAI()
-        self.history_file = "/home/hiratalab/catkin_ws/src/shu_task_planning/history/message_history.json"
+        self.history_file = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/history/message_history.json"
 
     def generate_response(self, text, model):
         response = self.client.chat.completions.create(

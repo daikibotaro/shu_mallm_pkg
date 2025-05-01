@@ -5,8 +5,8 @@ import os
 
 class KnowledgeBaseUpdater:
     def __init__(self):
-        self.knowledge_base_path = "/home/hiratalab/catkin_ws/src/shu_task_planning/my_package/rag/data/knowledge_base.json"
-        self.history_file = "/home/hiratalab/catkin_ws/src/shu_task_planning/history/message_history.json"
+        self.knowledge_base_path = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/my_package/rag/data/knowledge_base.json"
+        self.history_file = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/history/message_history.json"
 
     def extract_task_info(self):
         # 会話履歴を読み込む

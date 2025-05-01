@@ -27,7 +27,7 @@ class RobotController:
         self.client.wait_for_server()
         self.bridge = CvBridge()
         self.image_pub = rospy.Publisher('/camera/image', Image, queue_size=10)
-        self.save_image_dir = "/home/hiratalab/catkin_ws/src/shu_task_planning/images/"
+        self.save_image_dir = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/images/"
 
     def move_to_point_xy(self, x, y):
         goal = MoveBaseGoal()
@@ -164,7 +164,7 @@ class RobotController:
 class LLMProcessor:
     def __init__(self):
         self.client = OpenAI()
-        self.history_file = "/home/hiratalab/catkin_ws/src/shu_task_planning/history/message_history.json"
+        self.history_file = "/home/hiratalab/catkin_ws/src/shu_mallm_pkg/history/message_history.json"
 
     def generate_response(self, text, model):
         response = self.client.chat.completions.create(
@@ -254,7 +254,7 @@ class LLMProcessor:
 class DisplayManager:
     def __init__(self):
         self.root = None
-        self.history_file = "/home/hiratalab/catkin_ws/src/shu_task_planning/history/message_history.json"
+        self.history_file = "/home/hiratalab/catkin_ws/src/shu_mallm_pkgtory/message_history.json"
 
     def show_image(self, image_filename):
         # Check if the file exists
@@ -497,10 +497,10 @@ class TextToSpeech:
         self.voice_model = '/usr/share/hts-voice/mei/mei_angry.htsvoice'
         # self.voice_model = '/usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice'
 
-        self.text_file = '/home/hiratalab/catkin_ws/src/shu_task_planning/voice/temp.txt'
-        self.audio_file = '/home/hiratalab/catkin_ws/src/shu_task_planning/voice/output.wav'
-        self.silence_file = '/home/hiratalab/catkin_ws/src/shu_task_planning/voice/silence.wav'
-        self.final_output = '/home/hiratalab/catkin_ws/src/shu_task_planning/voice/final_output.wav'
+        self.text_file = '/home/hiratalab/catkin_ws/src/shu_mallm_pkgemp.txt'
+        self.audio_file = '/home/hiratalab/catkin_ws/src/shu_mallm_pkgutput.wav'
+        self.silence_file = '/home/hiratalab/catkin_ws/src/shu_mallm_pkgilence.wav'
+        self.final_output = '/home/hiratalab/catkin_ws/src/shu_mallm_pkg/voice/final_output.wav'
 
         self.talk_speed = 0.8
 
@@ -512,13 +512,13 @@ class TextToSpeech:
         command += ['-m', self.voice_model]
         command += ['-ow', self.audio_file]
         command += ['-r', str(self.talk_speed)]
-        # with open('/home/hiratalab/catkin_ws/src/shu_task_planning/voice/temp.txt', 'w') as f:
+        # with open('/home/hiratalab/catkin_ws/src/shu_mallm_pkg/voice/temp.txt', 'w') as f:
         # f.write(text)
         command += [self.text_file]
         subprocess.run(command)
         # subprocess.run(['sox', '-n', '-r', '48000', '-c', '1', self.silence_file, 'trim', '0.0', '2.0'])
         subprocess.run(['sox', self.silence_file, self.audio_file, self.final_output])
-        # subprocess.run(['aplay', '/home/hiratalab/catkin_ws/src/shu_task_planning/voice/output.wav'])
+        # subprocess.run(['aplay', '/home/hiratalab/catkin_ws/src/shu_mallm_pkg/voice/output.wav'])
         start = datetime.datetime.now()
         start_time = f"{start.hour}:{start.minute}:{start.second}.{int(start.microsecond / 10000):02d}"
         print("再生開始", start_time)

@@ -2,7 +2,7 @@ import sys
 import os
 
 # 絶対パスでrag/src/ディレクトリをsys.pathに追加
-path_to_add = '/home/hiratalab/catkin_ws/src/shu_task_planning/rag/src'
+path_to_add = '/home/hiratalab/catkin_ws/src/shu_mallm_pkg/rag/src'
 print(f"Adding path to sys.path: {path_to_add}")
 sys.path.append(path_to_add)
 
