@@ -1,0 +1,76 @@
+# マルチエージェントシステム設定
+
+# グループチャット設定
+group_chat:
+  max_rounds: 20
+  timeout: 300 # 秒
+  use_async: true
+
+# LLMモデル設定
+llm_defaults:
+  model: "gpt-4o"
+  temperature: 0
+  max_tokens: 4096
+
+# エージェント設定
+agents:
+  ui:
+    name: "UIAgent"
+    role: "ユーザーインターフェースエージェント"
+    system_message: "ユーザーとの対話を管理し、他のエージェントへの要求を振り分ける役割を担います。"
+    capabilities:
+      - "ユーザーの意図を理解"
+      - "タスクの分類"
+      - "他エージェントへの振り分け"
+    llm_config:
+      model: "gpt-4o"
+      temperature: 0.2
+
+  planning:
+    name: "PlanningAgent"
+    role: "タスクプランニングエージェント"
+    system_message: "ロボットタスクの全体計画を立案し、サブタスクに分解します。"
+    capabilities:
+      - "タスク分解"
+      - "リソース配分"
+      - "リスク評価"
+    llm_config:
+      model: "gpt-4o"
+      temperature: 0
+
+  knowledge:
+    name: "KnowledgeAgent"
+    role: "知識管理エージェント"
+    system_message: "RAGシステムを活用して関連情報を提供します。"
+    capabilities:
+      - "知識検索"
+      - "情報整理"
+      - "類似事例の抽出"
+    llm_config:
+      model: "gpt-4o"
+      temperature: 0
+
+  code:
+    name: "CodeAgent"
+    role: "コード生成エージェント"
+    system_message: "ロボット制御のためのPythonコードを生成します。"
+    capabilities:
+      - "ROSコード生成"
+      - "エラー処理"
+      - "安全性検証"
+    llm_config:
+      model: "gpt-4o"
+      temperature: 0
+
+  executor:
+    name: "ExecutorAgent"
+    role: "実行管理エージェント"
+    system_message: "生成されたコードの実行と監視を行います。"
+    capabilities:
+      - "コード実行"
+      - "エラーハンドリング"
+      - "実行結果収集"
+    is_human_proxy: true
+    code_execution_config:
+      work_dir: "execution_temp"
+      use_docker: false

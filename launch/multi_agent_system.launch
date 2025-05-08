@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- 通常のChainlitサービス -->
+  <include file="$(find shu_mallm_pkg)/launch/chainlit.launch" />
+  
+  <!-- マルチエージェントサービス -->
+  <node pkg="shu_mallm_pkg" type="run_multi_agent.py" name="multi_agent_system" output="screen">
+    <param name="config_path" value="$(find shu_mallm_pkg)/my_package/multi_agent/config/config.yaml"/>
+    <param name="use_rag" value="true"/>
+    <param name="debug" value="false"/>
+  </node>
+  
+  <!-- その他の必要なサービス -->
+  <include file="$(find tracer_navigation)/launch/startup.launch"/>
+</launch>
