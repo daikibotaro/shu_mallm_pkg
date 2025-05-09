@@ -1,4 +1,7 @@
-from autogen import AssistantAgent
+from autogen_agentchat.agents import AssistantAgent
+from autogen_agentchat.messages import TextMessage
+from autogen_core import CancellationToken
+
 from typing import Dict, Any, Optional, List
 
 
@@ -48,6 +51,13 @@ class BaseAgent(AssistantAgent):
         return system_message
 
     async def generate_response(self, message: str) -> str:
-        """メッセージに対して応答を生成"""
-        response = await self.on_messages([{"role": "user", "content": message}])
-        return response.message.content if hasattr(response, "message") else ""
+        # """メッセージに対して応答を生成"""
+        # response = await self.on_messages([{"role": "user", "content": message}])
+        # return response.message.content if hasattr(response, "message") else ""
+
+        # 新しい on_messages API：Response.chat_message が最終応答
+        response = await self.on_messages(
+            [TextMessage(content=message, source="user")],
+            cancellation_token=CancellationToken()
+        )
+        return response.chat_message.content

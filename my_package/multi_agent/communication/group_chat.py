@@ -1,4 +1,4 @@
-from autogen import GroupChat as AutoGenGroupChat
+from autogen_agentchat.teams import RoundRobinGroupChat as AutoGenGroupChat
 from typing import Dict, Any, List, Optional
 import asyncio
 import json
@@ -7,8 +7,19 @@ import json
 class GroupChat(AutoGenGroupChat):
     """AutoGenのGroupChatを拡張したクラス"""
 
-    def __init__(self, agents=None, messages=None, max_round=None,
-                 speaker_selection_method=None, allow_repeat_speaker=None, **kwargs):
+    # def __init__(self, agents=None, messages=None, max_round=None,
+    #              speaker_selection_method=None, allow_repeat_speaker=None, **kwargs):
+
+    def __init__(
+        self,
+        participants: List[ChatAgent],
+        group_chat_manager_name: str = "manager",
+        group_chat_manager_class: type = AutoGenGroupChat,
+        termination_condition: Optional[TerminationCondition] = None,
+        max_turns: Optional[int] = None,
+        **kwargs
+    ):
+
         # message_busとmonitoring_enabledを抽出し、残りのパラメータを親クラスに渡す
         self._message_bus = kwargs.pop("message_bus", None)
         self._monitoring_enabled = kwargs.pop("monitoring_enabled", True)
@@ -19,11 +30,11 @@ class GroupChat(AutoGenGroupChat):
 
         # 親クラスの初期化 - 現在のAPIに合わせたパラメータを使用
         super().__init__(
-            agents=agents,
-            messages=messages,
-            max_round=max_round,
-            speaker_selection_method=speaker_selection_method,
-            allow_repeat_speaker=allow_repeat_speaker,
+            participants=participants,
+            group_chat_manager_name=group_chat_manager_name,
+            group_chat_manager_class=group_chat_manager_class,
+            termination_condition=termination_condition,
+            max_turns=max_turns,
             **kwargs
         )
 

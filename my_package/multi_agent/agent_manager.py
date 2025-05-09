@@ -8,7 +8,8 @@ from multi_agent.communication.group_chat import GroupChat
 from multi_agent.communication.direct_channel import DirectChannel
 from multi_agent.config.agent_config import AgentConfig
 
-from autogen import GroupChatManager
+from autogen_agentchat.teams import RoundRobinGroupChat
+from autogen_agentchat.conditions import TextMentionTermination
 import asyncio
 import logging
 from typing import Dict, Any, List, Optional
@@ -56,6 +57,7 @@ class AgentManager:
         agents_config = self.config.config.get("agents", {})
 
         # 各エージェントを初期化
+        agent_list = list(self.agents.values())
         ui_config = agents_config.get("ui", {})
         self.agents["ui"] = UIAgent(ui_config)
 
@@ -78,22 +80,33 @@ class AgentManager:
         # 直接通信チャネルを作成
         self._setup_direct_channels()
 
-        # グループチャットを設定
+        # # グループチャットを設定
+        # group_chat_config = self.config.get_group_chat_config()
+        # agent_list = list(self.agents.values())
+
+        # self.group_chat = GroupChat(
+        #     agents=agent_list,
+        #     messages=[],
+        #     max_round=group_chat_config.get("max_rounds", 20),  # max_rounds → max_round に変更
+        # )
+
+        # # message_busプロパティを手動で設定
+        # self.group_chat.message_bus = self.message_bus
+        # self.group_chat.monitoring_enabled = group_chat_config.get("enable_monitoring", True)
+
+        # self.manager = GroupChatManager(
+        #     groupchat=self.group_chat,
+        #     llm_config=llm_defaults
+        # )
+
+        # 新API: RoundRobinGroupChat を直接利用
         group_chat_config = self.config.get_group_chat_config()
-        agent_list = list(self.agents.values())
-
-        self.group_chat = GroupChat(
-            agents=agent_list,
-            messages=[],
-            max_round=group_chat_config.get("max_rounds", 20),  # max_rounds → max_round に変更
-        )
-
-        # message_busプロパティを手動で設定
-        self.group_chat.message_bus = self.message_bus
-        self.group_chat.monitoring_enabled = group_chat_config.get("enable_monitoring", True)
-
-        self.manager = GroupChatManager(
-            groupchat=self.group_chat,
+        self.manager = RoundRobinGroupChat(
+            participants=agent_list,
+            termination_condition=TextMentionTermination(
+                source=self.agents["executor"].name
+            ),
+            max_turns=group_chat_config.get("max_rounds", 20),
             llm_config=llm_defaults
         )
 

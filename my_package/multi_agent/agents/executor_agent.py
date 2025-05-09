@@ -1,5 +1,5 @@
 from multi_agent.agents.base_agent import BaseAgent
-from autogen import UserProxyAgent
+from autogen_agentchat.agents import UserProxyAgent
 from typing import Dict, Any, List, Optional
 import os
 import tempfile
