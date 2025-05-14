@@ -10,6 +10,7 @@ from multi_agent.config.agent_config import AgentConfig
 
 from autogen_agentchat.teams import RoundRobinGroupChat
 from autogen_agentchat.conditions import TextMentionTermination
+from autogen_agentchat.messages import TextMessage
 import asyncio
 import logging
 from typing import Dict, Any, List, Optional
@@ -57,7 +58,6 @@ class AgentManager:
         agents_config = self.config.config.get("agents", {})
 
         # 各エージェントを初期化
-        agent_list = list(self.agents.values())
         ui_config = agents_config.get("ui", {})
         self.agents["ui"] = UIAgent(ui_config)
 
@@ -77,6 +77,8 @@ class AgentManager:
         if self.file_manager:
             self.agents["executor"].set_file_manager(self.file_manager)
 
+        # agent_listを作成
+        agent_list = list(self.agents.values())
         # 直接通信チャネルを作成
         self._setup_direct_channels()
 
@@ -103,11 +105,8 @@ class AgentManager:
         group_chat_config = self.config.get_group_chat_config()
         self.manager = RoundRobinGroupChat(
             participants=agent_list,
-            termination_condition=TextMentionTermination(
-                source=self.agents["executor"].name
-            ),
+            termination_condition=TextMentionTermination("TERMINATE"),
             max_turns=group_chat_config.get("max_rounds", 20),
-            llm_config=llm_defaults
         )
 
         self.logger.info("すべてのエージェントが初期化されました")
@@ -148,11 +147,15 @@ class AgentManager:
             await self.initialize_agents()
 
         # v0.4のAPIに合わせて修正
-        # async_runではなく、on_messagesまたはrunを使用
         chat_result = await self.manager.run(
-            messages=[{"role": "user", "content": message}],
-            sender=self.agents["ui"].name
+            task=TextMessage(content=message, source=self.agents["ui"].name)
         )
+
+        # async_runではなく、on_messagesまたはrunを使用
+        # chat_result = await self.manager.run(
+        #     messages=[{"role": "user", "content": message}],
+        #     sender=self.agents["ui"].name
+        # )
 
         # グループチャットのメトリクスを取得
         metrics = self.group_chat.get_metrics()

@@ -1,5 +1,7 @@
 from multi_agent.agents.base_agent import BaseAgent
 from autogen_agentchat.agents import UserProxyAgent
+from autogen_agentchat.messages import TextMessage
+from autogen import UserProxyAgent
 from typing import Dict, Any, List, Optional
 import os
 import tempfile
@@ -16,15 +18,16 @@ class ExecutorAgent(UserProxyAgent):
         # UserProxyAgentとして初期化
         super().__init__(
             name=name,
-            system_message=system_message,
             human_input_mode="NEVER",
             code_execution_config={
                 "work_dir": config.get("work_dir", "execution_temp"),
                 "use_docker": config.get("use_docker", False)
-            }
+            },
+            default_auto_reply="生成されたコードの実行と監視を行います"
         )
 
         self.file_manager = None  # 後で初期化
+        self.produced_message_types = [TextMessage]
 
     def set_file_manager(self, file_manager):
         """FileManagerの参照を設定"""

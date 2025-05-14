@@ -12,10 +12,9 @@ class GroupChat(AutoGenGroupChat):
 
     def __init__(
         self,
-        participants: List[ChatAgent],
+        participants: List[AutoGenGroupChat],
         group_chat_manager_name: str = "manager",
         group_chat_manager_class: type = AutoGenGroupChat,
-        termination_condition: Optional[TerminationCondition] = None,
         max_turns: Optional[int] = None,
         **kwargs
     ):

@@ -1,6 +1,7 @@
 from autogen_agentchat.agents import AssistantAgent
 from autogen_agentchat.messages import TextMessage
 from autogen_core import CancellationToken
+from autogen import OpenAIWrapper
 
 from typing import Dict, Any, Optional, List
 
@@ -16,13 +17,13 @@ class BaseAgent(AssistantAgent):
         """
         self.role = config.get("role", "assistant")
         self.capabilities = config.get("capabilities", [])
-
+        model_client = OpenAIWrapper(config_list=[config.get("llm_config", {"model": "gpt-4o", "temperature": 0})])
         system_message = self._build_system_message(config)
 
         super().__init__(
             name=name,
             system_message=system_message,
-            llm_config=config.get("llm_config", {"model": "gpt-4o", "temperature": 0}),
+            model_client=model_client,
         )
 
     def _build_system_message(self, config: Dict[str, Any]) -> str:
